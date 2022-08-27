@@ -1,0 +1,13 @@
+image:
+  file: .gitpod.Dockerfile
+tasks:
+  - name: tailscaled
+    command: |
+      sudo tailscaled
+  - name: tailscale
+    command: |
+      # Connecto to the tailscale network
+      sudo tailscale up \
+        --authkey "${TAILSCALE_AUTH_KEY}" \
+        --hostname "${GITPOD_WORKSPACE_ID}" \
+        --ssh
