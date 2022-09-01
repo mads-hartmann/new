@@ -9,5 +9,5 @@ tasks:
       # Connecto to the tailscale network
       sudo tailscale up \
         --authkey "${TAILSCALE_AUTH_KEY}" \
-        --hostname "${GITPOD_WORKSPACE_ID}" \
+        --hostname "gitpod-${GITPOD_WORKSPACE_ID}" \
         --ssh
