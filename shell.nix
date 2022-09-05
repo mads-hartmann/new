@@ -5,14 +5,7 @@ mkShell {
 
   # Package names can be found via https://search.nixos.org/packages
   nativeBuildInputs = [
-    # baseline 
-    direnv mosh
-
-    # cloud sdks
-    google-cloud-sdk
-
-    # docker
-    dive
+    direnv
   ];
 
   NIX_ENFORCE_PURITY = true;
