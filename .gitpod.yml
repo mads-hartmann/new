@@ -1,6 +1,13 @@
 image:
   file: .gitpod.Dockerfile
+
 tasks:
+  - init: >
+      mkdir -p /home/gitpod/.config/nix &&
+      echo 'sandbox = false' >> /home/gitpod/.config/nix/nix.conf
+  - name: nix
+    command: |
+      direnv allow
   - name: tailscaled
     command: |
       sudo tailscaled
@@ -11,3 +18,7 @@ tasks:
         --authkey "${TAILSCALE_AUTH_KEY}" \
         --hostname "gitpod-${GITPOD_WORKSPACE_ID}" \
         --ssh
+
+vscode:
+  extensions:
+    - bbenoist.Nix
