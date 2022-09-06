@@ -13,12 +13,6 @@ RUN curl -o /usr/bin/slirp4netns -fsSL https://github.com/rootless-containers/sl
 
 RUN curl -o /usr/local/bin/docker-compose -fsSL https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64 \
     && chmod +x /usr/local/bin/docker-compose
-    
-# Install tailscale
-RUN curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/focal.gpg | sudo apt-key add - \
-    && curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/focal.list | sudo tee /etc/apt/sources.list.d/tailscale.list \
-    && apt-get update \
-    && apt-get install -y tailscale
 
 # Install Nix
 RUN addgroup --system nixbld \
