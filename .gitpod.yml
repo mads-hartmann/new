@@ -12,14 +12,15 @@ tasks:
 
   - name: Shell
     command: |
+      # TODO: https://direnv.net/
+      direnv allow
+
       # Configure nix. We don't need sandboxing
       # https://nixos.org/manual/nix/stable/command-ref/conf-file.html#conf-sandbox
       mkdir -p /home/gitpod/.config/nix
       echo 'sandbox = false' >> /home/gitpod/.config/nix/nix.conf
-
-      # TODO: https://direnv.net/
-      direnv allow
-      gp sync-done sync-done
+      
+      gp sync-done nix-setup
 
       # Connecto to the tailscale network
       sudo tailscale up \
