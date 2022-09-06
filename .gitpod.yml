@@ -1,7 +1,8 @@
 image:
   file: .gitpod.Dockerfile
 
-tasks:
+tasks 
+:
      
   - name: tailscaled
     command: |
@@ -31,3 +32,4 @@ tasks:
 vscode:
   extensions:
     - bbenoist.Nix
+    - bungcip.better-toml

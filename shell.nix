@@ -6,12 +6,14 @@ mkShell {
   # Package names can be found via https://search.nixos.org/packages
   nativeBuildInputs = [
     direnv
-    treefmt
     tailscale
+    # Code formatting
+    treefmt
+    nixpkgs-fmt
+    nodePackages.prettier
   ];
 
   NIX_ENFORCE_PURITY = true;
-
 
   shellHook =
     ''
