@@ -7,6 +7,10 @@ mkShell {
   nativeBuildInputs = [
     direnv
     tailscale
+    # Docker and docker-compose
+    slirp4netns #TODO: Why do I need this?
+    docker
+    docker-compose
     # Code formatting
     treefmt
     nixpkgs-fmt
