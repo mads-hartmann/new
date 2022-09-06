@@ -11,6 +11,8 @@ mkShell {
 
   NIX_ENFORCE_PURITY = true;
 
-  shellHook = ''
-  '';
+  shellHook =
+    ''
+    export DIRENV_LOG_FORMAT=""
+    '';
 }
