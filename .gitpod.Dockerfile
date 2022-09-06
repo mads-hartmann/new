@@ -43,6 +43,11 @@ RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
   && nix-env -i git git-lfs
 
 # Install direnv
+#
+# Setting DIRENV_LOG_FORMAT to the empty string means direnv won't output
+# any logs when loading the environment. This makes things nice and quiet
+# but if you need to debug things, temporarily removing it might be helpful.
 RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
   && nix-env -i direnv \
-  && direnv hook bash >> /home/gitpod/.bashrc
+  && direnv hook bash >> /home/gitpod/.bashrc \
+  && echo 'export DIRENV_LOG_FORMAT=""' >> /home/gitpod/.bashrc
