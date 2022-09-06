@@ -4,3 +4,5 @@ Before switching to nix (merging this branch) I want to
 - Document some of the things in the Dockerfile
 - Document .envrc
 - Clean up the .gitpod.yml so I don't get that many shells
+
+- Get rid of "direnv: error /workspace/new/.envrc is blocked. Run `direnv allow` to approve its content" errors the Gitpod tasks (scroll alll the way up to see them)
