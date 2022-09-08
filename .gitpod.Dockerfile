@@ -3,6 +3,7 @@ FROM gitpod/workspace-base
 USER root
 
 # Install Nix
+# TOOD: Do we really need these? From the latest install script it sounds like it will create these for us.
 RUN addgroup --system nixbld \
   && adduser gitpod nixbld \
   && for i in $(seq 1 30); do useradd -ms /bin/bash nixbld$i &&  adduser nixbld$i nixbld; done \
@@ -16,7 +17,7 @@ ENV USER gitpod
 WORKDIR /home/gitpod
 
 RUN touch .bash_profile \
- && curl https://nixos.org/releases/nix/nix-2.3.14/install | sh
+ && curl https://nixos.org/releases/nix/nix-2.11.0/install | sh
 
 RUN echo '. /home/gitpod/.nix-profile/etc/profile.d/nix.sh' >> /home/gitpod/.bashrc
 RUN mkdir -p /home/gitpod/.config/nixpkgs && echo '{ allowUnfree = true; }' >> /home/gitpod/.config/nixpkgs/config.nix
