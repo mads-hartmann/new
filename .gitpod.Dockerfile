@@ -4,10 +4,12 @@ USER root
 
 # Install Nix
 # TOOD: Do we really need these? From the latest install script it sounds like it will create these for us.
-RUN addgroup --system nixbld \
-  && adduser gitpod nixbld \
-  && for i in $(seq 1 30); do useradd -ms /bin/bash nixbld$i &&  adduser nixbld$i nixbld; done \
-  && mkdir -m 0755 /nix && chown gitpod /nix \
+# RUN addgroup --system nixbld \
+#   && adduser gitpod nixbld \
+#   && for i in $(seq 1 30); do useradd -ms /bin/bash nixbld$i &&  adduser nixbld$i nixbld; done \
+#   && mkdir -m 0755 /nix && chown gitpod /nix \
+#   && mkdir -p /etc/nix && echo 'sandbox = false' > /etc/nix/nix.conf
+RUN mkdir -m 0755 /nix && chown gitpod /nix \
   && mkdir -p /etc/nix && echo 'sandbox = false' > /etc/nix/nix.conf
   
 # Install Nix
