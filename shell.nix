@@ -1,4 +1,9 @@
-# https://nix.dev/tutorials/declarative-and-reproducible-developer-environments
+# This file is being read by nix-shell. See man nix-shell for more details
+# on how this works.
+#
+# Another useful resource:
+#   https://nix.dev/tutorials/declarative-and-reproducible-developer-environments
+#
 with import <nixpkgs> { };
 
 mkShell {
