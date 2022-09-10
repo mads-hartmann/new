@@ -35,4 +35,5 @@ USER gitpod
 RUN curl https://nixos.org/releases/nix/nix-2.11.0/install -o install-nix \
     && chmod +x ./install-nix \
     && ./install-nix --no-daemon \
-    && rm ./install-nix
+    && rm ./install-nix \
+    && echo '. /home/gitpod/.nix-profile/etc/profile.d/nix.sh' >> /home/gitpod/.bashrc
