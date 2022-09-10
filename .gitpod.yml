@@ -1,5 +1,4 @@
-image:
-  file: .gitpod.small.Dockerfile
+image: nixos/nix:2.11.0
 
 tasks:
      
