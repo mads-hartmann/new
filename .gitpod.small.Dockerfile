@@ -43,6 +43,13 @@ RUN curl https://nixos.org/releases/nix/nix-2.11.0/install -o install-nix \
     && rm ./install-nix \
     && echo '. /home/gitpod/.nix-profile/etc/profile.d/nix.sh' >> /home/gitpod/.bashrc
 
-# Install a few required packages
+# Install a few Nix packages for the Gitpod users Nix profile.
+#
+# This will make the binaries available to the gitpod even outside of a specific
+# nix-shell.
+#
+# For each package I've explain why this is needed.
+#
 RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
+  # git is needed (TODO: verify: Gitpod uses the git binary in the workspace to configure the git client to use the oauth token)
   && nix-env -i git
