@@ -32,3 +32,4 @@ vscode:
   extensions:
     - bbenoist.Nix
     - bungcip.better-toml
+    - arrterian.nix-env-selector

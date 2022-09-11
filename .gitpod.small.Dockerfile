@@ -37,3 +37,7 @@ RUN curl https://nixos.org/releases/nix/nix-2.11.0/install -o install-nix \
     && ./install-nix --no-daemon \
     && rm ./install-nix \
     && echo '. /home/gitpod/.nix-profile/etc/profile.d/nix.sh' >> /home/gitpod/.bashrc
+
+# Install a few required packages
+RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
+  && nix-env -i git git-lfs

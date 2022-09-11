@@ -11,6 +11,7 @@ mkShell {
   # Package names can be found via https://search.nixos.org/packages
   nativeBuildInputs = [
     git
+    less
 
     direnv
     tailscale
