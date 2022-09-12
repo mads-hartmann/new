@@ -24,9 +24,9 @@ tasks:
       # a subdirectory of /workspace
       time nix-shell --run "exit 0"
       gp sync-done nix-setup
-
+    command: |
       # Connecto to the tailscale network
-      sudo tailscale up \
+      sudo $(which tailscale) up \
         --authkey "${TAILSCALE_AUTH_KEY}" \
         --hostname "gitpod-${GITPOD_WORKSPACE_ID}" \
         --ssh
