@@ -60,9 +60,17 @@ RUN curl https://nixos.org/releases/nix/nix-2.11.0/install -o install-nix \
 # For each package I've explain why this is needed.
 #
 RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
-  && nix-env -i \
-    # Having man pages available is kind of nice.
-    man-db
+    && nix-env -i \
+        # Having man pages available is kind of nice.
+        man-db \
+        direnv \
+    # Install direnv
+    #
+    # Setting DIRENV_LOG_FORMAT to the empty string means direnv won't output
+    # any logs when loading the environment. This makes things nice and quiet
+    # but if you need to debug things, temporarily removing it might be helpful.
+    && direnv hook bash >> /home/gitpod/.bashrc \
+    && echo 'export DIRENV_LOG_FORMAT=""' >> /home/gitpod/.bashrc
 
 # TODO: Things from the old dockerfile I'm still considering
 # 
@@ -73,13 +81,3 @@ RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
 # RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
 #   && nix-env -iA cachix -f https://cachix.org/api/v1/install \
 #   && cachix use cachix
-
-# # Install direnv
-# #
-# # Setting DIRENV_LOG_FORMAT to the empty string means direnv won't output
-# # any logs when loading the environment. This makes things nice and quiet
-# # but if you need to debug things, temporarily removing it might be helpful.
-# RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
-#   && nix-env -i direnv \
-#   && direnv hook bash >> /home/gitpod/.bashrc \
-#   && echo 'export DIRENV_LOG_FORMAT=""' >> /home/gitpod/.bashrc

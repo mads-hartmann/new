@@ -2,7 +2,13 @@ image:
   file: .gitpod.small.Dockerfile
 
 tasks:
-     
+  - name: Prepare
+    init: |
+      time nix-shell --run "exit 0"
+      direnv allow
+      gp sync-done nix-setup
+      exit 0
+
   - name: tailscaled
     command: |
       # Wait for nix to have initialized the environmnet
@@ -13,15 +19,7 @@ tasks:
   - name: Shell
     command: |
       # TODO: https://direnv.net/
-      direnv allow
-
-      # Configure nix. We don't need sandboxing
-      # https://nixos.org/manual/nix/stable/command-ref/conf-file.html#conf-sandbox
-      mkdir -p /home/gitpod/.config/nix
-      echo 'sandbox = false' >> /home/gitpod/.config/nix/nix.conf
-      
-      gp sync-done nix-setup
-
+      gp sync-await nix-setup
       # Connecto to the tailscale network
       sudo tailscale up \
         --authkey "${TAILSCALE_AUTH_KEY}" \
