@@ -6,7 +6,7 @@ FROM ubuntu:22.04
 # will be installed and controlled by nix.
 #
 RUN apt update \
-    && apt upgrade \
+    && apt upgrade -y \
     && apt-get install -y \
         # I shouldn't need sudo, but doesn't hurt to have it
         sudo \
