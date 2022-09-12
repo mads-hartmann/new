@@ -2,6 +2,13 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
+  - name: tailscaled
+    command: |
+      # Wait for nix to have initialized the environmnet
+      gp sync-await nix-setup
+      # Start tailscale daemon
+      nix-shell --run "sudo $(which tailscaled)"
+      
   - name: Prepare
     before: |
       # Configure direnv
@@ -11,6 +18,7 @@ tasks:
       # but if you need to debug things, temporarily removing it might be helpful.
       direnv hook bash >> /home/gitpod/.bashrc
       echo 'export DIRENV_LOG_FORMAT=""' >> /home/gitpod/.bashrc
+      direnv allow
     init: |
       # TODO: For this to work in prebuilds the nix cache needs to be installed in
       # a subdirectory of /workspace
@@ -24,13 +32,6 @@ tasks:
         --ssh
       
       echo "Setup ready :-)"
-
-  - name: tailscaled
-    command: |
-      # Wait for nix to have initialized the environmnet
-      gp sync-await nix-setup
-      # Start tailscale daemon
-      nix-shell --run "sudo tailscaled"
 
 vscode:
   extensions:
