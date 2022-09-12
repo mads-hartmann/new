@@ -4,10 +4,10 @@ image:
 tasks:
   - name: Prepare
     init: |
+      # TODO: For this to work in prebuilds the nix cache needs to be installed in
+      # a subdirectory of /workspace
       time nix-shell --run "exit 0"
-      direnv allow
       gp sync-done nix-setup
-      exit 0
 
   - name: tailscaled
     command: |

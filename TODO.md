@@ -7,3 +7,4 @@ Before switching to nix (merging this branch) I want to
 - Run treefmt as a git hook
 
 - Get rid of "direnv: error /workspace/new/.envrc is blocked. Run `direnv allow` to approve its content" errors the Gitpod tasks (scroll alll the way up to see them)
+  This is because they tasks use the Gitpod users shell profile
