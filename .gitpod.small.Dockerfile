@@ -13,7 +13,16 @@ RUN apt update \
         # Needed to download nix install script, and by nix itself to download binary tarballs
         curl \
         # needed by Nix to unpack binary tarballs
-        xz-utils
+        xz-utils \
+        # git needs to be availble for the root user.
+        # Gitpod will configure user.name, user.email, and credential.helper when starting your workspace
+        # but to do so it needs to have the git binary available to invoke `git config --global "key" "value"`
+        #
+        #   git config --global "user.name" "$GITPOD_GIT_USER_NAME"
+        #   git config --global "user.email" "$GITPOD_GIT_USER_EMAIL"
+        #   git config --global "credential.helper" "/usr/bin/gp credential-helper"
+        #
+        git
 
 # Create the Gitpod user
 #
@@ -51,5 +60,6 @@ RUN curl https://nixos.org/releases/nix/nix-2.11.0/install -o install-nix \
 # For each package I've explain why this is needed.
 #
 RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
-  # git is needed (TODO: verify: Gitpod uses the git binary in the workspace to configure the git client to use the oauth token)
-  && nix-env -i git
+  && nix-env -i \
+    # Having man pages available is kind of nice.
+    man-db
