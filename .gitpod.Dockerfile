@@ -70,7 +70,7 @@ RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
     # any logs when loading the environment. This makes things nice and quiet
     # but if you need to debug things, temporarily removing it might be helpful.
     && direnv hook bash >> /home/gitpod/.bashrc \
-    && direnv allow
+    && direnv allow \
     && echo 'export DIRENV_LOG_FORMAT=""' >> /home/gitpod/.bashrc
 
 # TODO: Things from the old dockerfile I'm still considering
