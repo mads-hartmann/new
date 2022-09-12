@@ -3,28 +3,34 @@ image:
 
 tasks:
   - name: Prepare
+    before: |
+      # Configure direnv
+      #
+      # Setting DIRENV_LOG_FORMAT to the empty string means direnv won't output
+      # any logs when loading the environment. This makes things nice and quiet
+      # but if you need to debug things, temporarily removing it might be helpful.
+      direnv hook bash >> /home/gitpod/.bashrc
+      echo 'export DIRENV_LOG_FORMAT=""' >> /home/gitpod/.bashrc
     init: |
       # TODO: For this to work in prebuilds the nix cache needs to be installed in
       # a subdirectory of /workspace
       time nix-shell --run "exit 0"
       gp sync-done nix-setup
 
-  - name: tailscaled
-    command: |
-      # Wait for nix to have initialized the environmnet
-      gp sync-await nix-setup
-      # Start tailscale daemon
-      sudo tailscaled
-
-  - name: Shell
-    command: |
-      # TODO: https://direnv.net/
-      gp sync-await nix-setup
       # Connecto to the tailscale network
       sudo tailscale up \
         --authkey "${TAILSCALE_AUTH_KEY}" \
         --hostname "gitpod-${GITPOD_WORKSPACE_ID}" \
         --ssh
+      
+      echo "Setup ready :-)"
+
+  - name: tailscaled
+    command: |
+      # Wait for nix to have initialized the environmnet
+      gp sync-await nix-setup
+      # Start tailscale daemon
+      nix-shell --run "sudo tailscaled"
 
 vscode:
   extensions:
