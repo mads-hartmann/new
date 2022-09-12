@@ -2,7 +2,7 @@ FROM ubuntu:22.04
 
 # Install minimal set of base system requirments
 #
-# I also want to install what is needed to bootstrap a Nix environment, the rest
+# I only want to install what is needed to bootstrap a Nix environment, the rest
 # will be installed and controlled by nix.
 #
 RUN apt update \
@@ -14,7 +14,8 @@ RUN apt update \
         curl \
         # needed by Nix to unpack binary tarballs
         xz-utils \
-        # git needs to be availble for the root user.
+        # Gitpod needs git to be availble for the root user.
+        #
         # Gitpod will configure user.name, user.email, and credential.helper when starting your workspace
         # but to do so it needs to have the git binary available to invoke `git config --global "key" "value"`
         #
@@ -34,8 +35,7 @@ RUN useradd -l -u 33333 -G sudo -md /home/gitpod -s /bin/bash -p gitpod gitpod \
 
 # For /home/gitpod/.nix-profile/etc/profile.d/nix.sh to work within
 # this Dockerfile both HOME and USER needs to be set.
-ENV HOME=/home/gitpod
-ENV USER=gitpod
+ENV HOME=/home/gitpod USER=gitpod
 
 WORKDIR $HOME
 USER gitpod
