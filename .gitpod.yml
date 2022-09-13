@@ -20,6 +20,8 @@ tasks:
       echo 'export DIRENV_LOG_FORMAT=""' >> /home/gitpod/.bashrc
       direnv allow
     command: |
+      source /home/gitpod/.bashrc
+
       # direnv will have activated the nix-shell at this point
       gp sync-done nix-setup
 
