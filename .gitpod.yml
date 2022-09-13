@@ -7,7 +7,7 @@ tasks:
       # Wait for nix to have initialized the environmnet
       gp sync-await nix-setup
       # Start tailscale daemon
-      nix-shell --run "sudo $(which tailscaled)"
+      nix-shell --run 'sudo $(which tailscaled)'
       
   - name: Prepare
     before: |
