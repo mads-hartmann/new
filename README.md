@@ -12,6 +12,8 @@ The basic setup ...
 
 ## Future improvements
 
+TODO: A simple workaround for now would be to COPY shell.nix in the Dockerfile and run `nix-shell --run "exit 0"` there. Then we can get rid of `gp sync-done nix-setup`
+
 Currently the nix store is located in `/nix/store` which is unfortunately as it means we can't populate the store during prebuilds as those only save files in `/workspace` ([ref](https://www.gitpod.io/docs/prebuilds#workspace-directory-only))
 
 Using `NIX_STORE_DIR=/workspace/nix` seems to break the Nix installer.

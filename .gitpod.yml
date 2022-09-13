@@ -24,7 +24,7 @@ tasks:
       time nix-shell --run "exit 0"
       gp sync-done nix-setup
 
-      # Connecto to the tailscale network
+      echo "Connecting to tailscale network"
       nix-shell --run 'sudo $(which tailscale) up \
         --authkey "${TAILSCALE_AUTH_KEY}" \
         --hostname "gitpod-${GITPOD_WORKSPACE_ID}" \
