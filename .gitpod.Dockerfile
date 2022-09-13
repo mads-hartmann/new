@@ -27,7 +27,8 @@ RUN apt update \
 
 # Create the Gitpod user
 #
-# 
+# This creates the user that Gitpod would otherwise create for us. We need the user
+# in this Dockerfile as we're going to install Nix for the Gtipod user specifically.
 #
 RUN useradd -l -u 33333 -G sudo -md /home/gitpod -s /bin/bash -p gitpod gitpod \
     # passwordless sudo for users in the 'sudo' group
@@ -35,7 +36,7 @@ RUN useradd -l -u 33333 -G sudo -md /home/gitpod -s /bin/bash -p gitpod gitpod \
 
 # For /home/gitpod/.nix-profile/etc/profile.d/nix.sh to work within
 # this Dockerfile both HOME and USER needs to be set.
-ENV HOME=/home/gitpod USER=gitpod
+ENV HOME=/home/gitpod USER=gitpod NIX_STORE_DIR=/workspace/nix
 
 WORKDIR $HOME
 USER gitpod
