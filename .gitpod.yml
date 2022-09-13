@@ -20,14 +20,16 @@ tasks:
       echo 'export DIRENV_LOG_FORMAT=""' >> /home/gitpod/.bashrc
       direnv allow
     command: |
+      nix-shell
+      gp sync-done nix-setup
+
       # Connecto to the tailscale network
-      nix-shell --run 'sudo $(which tailscale) up \
+      sudo $(which tailscale) up \
         --authkey "${TAILSCALE_AUTH_KEY}" \
         --hostname "gitpod-${GITPOD_WORKSPACE_ID}" \
-        --ssh'
+        --ssh
       
       echo "Setup ready :-)"
-      gp sync-done nix-setup
 
 vscode:
   extensions:

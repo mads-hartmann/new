@@ -51,6 +51,11 @@ RUN curl https://nixos.org/releases/nix/nix-2.11.0/install -o install-nix \
     && chmod +x ./install-nix \
     && ./install-nix --no-daemon \
     && rm ./install-nix \
+    # Configure Nix to allow installing unfree packages, meaning packages that use a license
+    # that is not considered free.
+    && mkdir -p /home/gitpod/.config/nixpkgs \
+    && echo '{ allowUnfree = true; }' >> /home/gitpod/.config/nixpkgs/config.nix \
+    # Load nix as part for all bash sessions for the Gitpod user
     && echo '. /home/gitpod/.nix-profile/etc/profile.d/nix.sh' >> /home/gitpod/.bashrc
 
 # Install a few Nix packages for the Gitpod users Nix profile.
@@ -68,7 +73,7 @@ RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
 
 # TODO: Things from the old dockerfile I'm still considering
 # 
-# RUN mkdir -p /home/gitpod/.config/nixpkgs && echo '{ allowUnfree = true; }' >> /home/gitpod/.config/nixpkgs/config.nix
+# RUN 
 
 # # Install cachix
 # RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
