@@ -19,12 +19,10 @@ tasks:
       direnv hook bash >> /home/gitpod/.bashrc
       echo 'export DIRENV_LOG_FORMAT=""' >> /home/gitpod/.bashrc
       direnv allow
-    init: |
-      # TODO: For this to work in prebuilds the nix cache needs to be installed in
-      # a subdirectory of /workspace
-      time nix-shell --run "exit 0"
-      gp sync-done nix-setup
     command: |
+      # direnv will have activated the nix-shell at this point
+      gp sync-done nix-setup
+
       # Connecto to the tailscale network
       sudo $(which tailscale) up \
         --authkey "${TAILSCALE_AUTH_KEY}" \

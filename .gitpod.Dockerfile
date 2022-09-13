@@ -36,7 +36,7 @@ RUN useradd -l -u 33333 -G sudo -md /home/gitpod -s /bin/bash -p gitpod gitpod \
 
 # For /home/gitpod/.nix-profile/etc/profile.d/nix.sh to work within
 # this Dockerfile both HOME and USER needs to be set.
-ENV HOME=/home/gitpod USER=gitpod NIX_STORE_DIR=/workspace/nix
+ENV HOME=/home/gitpod USER=gitpod
 
 WORKDIR $HOME
 USER gitpod
@@ -68,7 +68,6 @@ RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
 
 # TODO: Things from the old dockerfile I'm still considering
 # 
-# RUN echo '. /home/gitpod/.nix-profile/etc/profile.d/nix.sh' >> /home/gitpod/.bashrc
 # RUN mkdir -p /home/gitpod/.config/nixpkgs && echo '{ allowUnfree = true; }' >> /home/gitpod/.config/nixpkgs/config.nix
 
 # # Install cachix
