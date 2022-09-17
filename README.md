@@ -17,7 +17,7 @@ Before switching to nix (merging this branch) I want to
 - Document shell.nix better
 - Finish the README
 - Git hooks
-  - See https://github.com/cachix/pre-commit-hooks.nix
+  - See https://github.com/cachix/pre-commit-hooks.nix as a way to mange [pre-commit](https://pre-commit.com/) with nix.
   - Run treefmt as part of the githook
 
 ## Decisions and future improvements

@@ -3,6 +3,7 @@
 #
 # Another useful resource:
 #   https://nix.dev/tutorials/declarative-and-reproducible-developer-environments
+#   https://nixos.org/manual/nix/stable/command-ref/nix-shell.html
 #
 with import <nixpkgs> { };
 
@@ -22,8 +23,6 @@ mkShell {
     nixpkgs-fmt
     nodePackages.prettier
   ];
-
-  NIX_ENFORCE_PURITY = true;
 
   shellHook =
     ''
