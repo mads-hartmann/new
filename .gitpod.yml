@@ -4,17 +4,17 @@ image:
 tasks:
   - name: tailscaled
     command: |
-      # Wait for nix to have initialized the environmnet
+      # Wait for nix to have initialized the environment
       gp sync-await nix-setup
       # Start tailscale daemon
       nix-shell --run 'sudo $(which tailscaled)'
       
   - name: Prepare
-    command: |
+    before: |
       # This ensures we populate the Nix store with all the packages needed by shell.nix
       time nix-shell --run "exit 0"
       gp sync-done nix-setup
-
+    command: |
       echo "Connecting to tailscale network"
       nix-shell --run 'sudo $(which tailscale) up \
         --authkey "${TAILSCALE_AUTH_KEY}" \
