@@ -10,7 +10,48 @@ The basic setup ...
   which means nix controls my shell through [nix-shell](https://nixos.org/manual/nix/stable/command-ref/nix-shell.html).
 - [treefmt](https://github.com/numtide/treefmt) takes care of formatting all the source code.
 
-## Future improvements
+## TODOs
+
+Before switching to nix (merging this branch) I want to
+
+- Document shell.nix better
+- Finish the README
+- Git hooks
+  - See https://github.com/cachix/pre-commit-hooks.nix
+  - Run treefmt as part of the githook
+
+## Decisions and future improvements
+
+### Not using direnv
+
+## Not using direnv
+
+- [direnv](https://direnv.net/) is used to have folder-specific shell configurations. Right now it's mostly useful to have `ùse nix`
+
+```dockerfile
+ # Install a few Nix packages for the Gitpod users Nix profile.
+ #
+ # This will make the binaries available to the gitpod even outside of a specific
+ # nix-shell.
+ RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
+    && nix-env -i \
+        direnv
+```
+
+```yaml
+- name: Prepare
+  before: |
+    # Configure direnv
+    #
+    # Setting DIRENV_LOG_FORMAT to the empty string means direnv won't output
+    # any logs when loading the environment. This makes things nice and quiet
+    # but if you need to debug things, temporarily removing it might be helpful.
+    direnv hook bash >> /home/gitpod/.bashrc
+    echo 'export DIRENV_LOG_FORMAT=""' >> /home/gitpod/.bashrc
+    direnv allow
+```
+
+### Not using Gitpod init task
 
 TODO: A simple workaround for now would be to COPY shell.nix in the Dockerfile and run `nix-shell --run "exit 0"` there. Then we can get rid of `gp sync-done nix-setup`
 
