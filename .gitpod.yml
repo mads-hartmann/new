@@ -17,7 +17,9 @@ tasks:
       fg
 
   - name: Nix shell
-    command: nix-shell
+    command: |
+      clear # Remove noise from Gitpod
+      nix-shell
 
 vscode:
   extensions:
