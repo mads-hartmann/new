@@ -58,23 +58,15 @@ RUN curl https://nixos.org/releases/nix/nix-2.11.0/install -o install-nix \
     # Load nix as part for all bash sessions for the Gitpod user
     && echo '. /home/gitpod/.nix-profile/etc/profile.d/nix.sh' >> /home/gitpod/.bashrc
 
-# Install a few Nix packages for the Gitpod users Nix profile.
-#
-# This will make the binaries available to the gitpod even outside of a specific
-# nix-shell.
-#
-# For each package I've explain why this is needed.
-#
+# This populates the Nix store with all the packages needed by shell.nix
+# 
+COPY ./shell.nix /workspace/nix-boot/shell.nix
 RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
-    && nix-env -i \
-        # Having man pages available is kind of nice.
-        man-db \
-        direnv
+    && cd /workspace/nix-boot \
+    && nix-shell --run "exit 0"
 
 # TODO: Things from the old dockerfile I'm still considering
-# 
-# RUN 
-
+#
 # # Install cachix
 # RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
 #   && nix-env -iA cachix -f https://cachix.org/api/v1/install \

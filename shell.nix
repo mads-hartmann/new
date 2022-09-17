@@ -10,8 +10,8 @@ mkShell {
 
   # Package names can be found via https://search.nixos.org/packages
   nativeBuildInputs = [
+    man-db
     less
-    direnv
     tailscale
     # Docker and docker-compose
     slirp4netns #TODO: Why do I need this?
