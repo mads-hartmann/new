@@ -2,13 +2,11 @@
 
 This is my starting point for _new_ things; it's my ["dotfiles" but "for computers"](https://ghuntley.com/slash-new/).
 
-It uses [nix-shell](https://nixos.org/manual/nix/stable/command-ref/nix-shell.html) to provide a [declarative and reproducible developer environment](https://nix.dev/tutorials/declarative-and-reproducible-developer-environments) and been optimized to run in [Gitpod](https://gitpod.io/).
+It uses [nix-shell](https://nixos.org/manual/nix/stable/command-ref/nix-shell.html) to provide a [declarative and reproducible developer environment](https://nix.dev/tutorials/declarative-and-reproducible-developer-environments) and is meant to be run in [Gitpod](https://gitpod.io/).
 
-The basic setup ...
+[Tailscale](https://tailscale.com/) is used to connect to my private network in case I need access to any of my internal services.
 
-- [nix](https://nix.dev) is used to manage dependencies configure the shell
-  which means nix controls my shell through [nix-shell](https://nixos.org/manual/nix/stable/command-ref/nix-shell.html).
-- [treefmt](https://github.com/numtide/treefmt) takes care of formatting all the source code.
+Source code formatting is taken care of by [treefmt](https://github.com/numtide/treefmt).
 
 Credit goes to [Geoffrey Huntley](https://ghuntley.com/) for the idea of [/new](https://ghuntley.com/slash-new/) and the original code in [ghuntley/new](https://github.com/ghuntley/new) which I used as a starting point.
 
@@ -16,14 +14,17 @@ Credit goes to [Geoffrey Huntley](https://ghuntley.com/) for the idea of [/new](
 
 Before switching to nix (merging this branch) I want to
 
-- Document shell.nix better
-- Finish the README
 - Git hooks
   - See https://github.com/cachix/pre-commit-hooks.nix as a way to mange [pre-commit](https://pre-commit.com/) with nix.
   - Run treefmt as part of the githook
+- Document shell.nix better
 - Version locking (forgot the name of the tool)
 
 ## Notes
+
+### Not using `workspace-full`
+
+Mainly for aesthetics reasons (I just need enough to run Nix, not the full kitchen sink) and as a learning exercise.
 
 ### Not using a Gitpod `init` task
 
