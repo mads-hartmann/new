@@ -2,25 +2,29 @@ image:
   file: .gitpod.Dockerfile
 
 tasks:
-  - name: tailscaled
+  - name: Tailscale
     command: |
       # Wait for nix to have initialized the environment
       gp sync-await nix-setup
-      # Start tailscale daemon
-      nix-shell --run 'sudo $(which tailscaled)'
-      
-  - name: Prepare
-    before: |
-      # This ensures we populate the Nix store with all the packages needed by shell.nix
-      time nix-shell --run "exit 0"
-      gp sync-done nix-setup
-    command: |
-      echo "Connecting to tailscale network"
+
+      # Start tailscale daemon (tailscaled) in the background
+      nix-shell --run 'sudo $(which tailscaled)' &
+
+      # Connect to the tailscale network now that the daemon is running.
       nix-shell --run 'sudo $(which tailscale) up \
         --authkey "${TAILSCALE_AUTH_KEY}" \
         --hostname "gitpod-${GITPOD_WORKSPACE_ID}" \
         --ssh'
-      
+
+      # Move tailscaled to the foreground
+      fg
+
+  - name: Nix shell
+    command: |
+      # This ensures we populate the Nix store with all the packages needed by shell.nix
+      time nix-shell --run "exit 0"
+      gp sync-done nix-setup
+
       echo "Setup ready :-)"
       nix-shell
 
