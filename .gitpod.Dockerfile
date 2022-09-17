@@ -8,7 +8,7 @@ FROM ubuntu:22.04
 RUN apt update \
     && apt upgrade -y \
     && apt-get install -y \
-        # I shouldn't need sudo, but doesn't hurt to have it
+        # Nix will run a few commands as sudo during installation.
         sudo \
         # Needed to download nix install script, and by nix itself to download binary tarballs
         curl \
@@ -44,8 +44,8 @@ USER gitpod
 # Install nix
 #
 # I'm using a single-user installation of Nix (hence the --no-daemon).
-# While the multi-user installation provides better security, it add additional
-# complexity which I don't think is warrented when running in an ephemeral Gitpod workspace
+# While the multi-user installation provides better security, it adds additional
+# complexity which wasn't worth the trade-off for my fairly simple usage of nix-shell.
 #
 RUN curl https://nixos.org/releases/nix/nix-2.11.0/install -o install-nix \
     && chmod +x ./install-nix \
@@ -56,18 +56,17 @@ RUN curl https://nixos.org/releases/nix/nix-2.11.0/install -o install-nix \
     && mkdir -p /home/gitpod/.config/nixpkgs \
     && echo '{ allowUnfree = true; }' >> /home/gitpod/.config/nixpkgs/config.nix \
     # Load nix as part for all bash sessions for the Gitpod user
+    # This makes nix-shell, nix-env, etc. available
     && echo '. /home/gitpod/.nix-profile/etc/profile.d/nix.sh' >> /home/gitpod/.bashrc
 
 # This populates the Nix store with all the packages needed by shell.nix
 # 
+# Ideally I would have placed this in an 'init' task in my gitpod.yml but at the moment
+# Gitpod Prebuilds only save files stored in /workspace. The nix store is located in /nix and
+# I wasn't able to move it to /workspace/nix so as a temporary workaround we populate the nix store
+# here in the Dockerfile instead.
+#
 COPY ./shell.nix /workspace/nix-boot/shell.nix
 RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
     && cd /workspace/nix-boot \
     && nix-shell --run "exit 0"
-
-# TODO: Things from the old dockerfile I'm still considering
-#
-# # Install cachix
-# RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
-#   && nix-env -iA cachix -f https://cachix.org/api/v1/install \
-#   && cachix use cachix

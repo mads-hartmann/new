@@ -1,7 +1,5 @@
 Before switching to nix (merging this branch) I want to
 
-- Document the various bits in shell.nix
-- Document some of the things in the Dockerfile
-- Document .envrc
-- [x] Clean up the .gitpod.yml so I don't get that many shells
+- Document shell.nix better
+- Finish the README
 - Run treefmt as a git hook
