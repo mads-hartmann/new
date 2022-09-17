@@ -1,4 +1,4 @@
-# This file is being read by nix-shell. See man nix-shell for more details
+# This file is being read by nix-shell. See 'man nix-shell' for more details
 # on how this works.
 #
 # Another useful resource:
@@ -14,10 +14,11 @@ mkShell {
     man-db
     less
     tailscale
-    # Docker and docker-compose
-    slirp4netns #TODO: Why do I need this?
+    # Docker
+    # This is mainly to have a dev-loop for .gitpod.Dockerfile
+    # slirp4netns is required by docker in rootless mode
+    slirp4netns
     docker
-    docker-compose
     # Code formatting
     treefmt
     nixpkgs-fmt

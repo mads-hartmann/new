@@ -8,6 +8,8 @@ It uses [nix-shell](https://nixos.org/manual/nix/stable/command-ref/nix-shell.ht
 
 Source code formatting is taken care of by [treefmt](https://github.com/numtide/treefmt).
 
+But other than that there isn't much here - it's intended to be as empty as possible while still making it easy to play around with new tools or build things.
+
 Credit goes to [Geoffrey Huntley](https://ghuntley.com/) for the idea of [/new](https://ghuntley.com/slash-new/) and the original code in [ghuntley/new](https://github.com/ghuntley/new) which I used as a starting point.
 
 ## TODOs
@@ -19,6 +21,7 @@ Before switching to nix (merging this branch) I want to
   - Run treefmt as part of the githook
 - Document shell.nix better
 - Version locking (forgot the name of the tool)
+- Do I want to use cachix as a binary cache? Is it useful when I don't nix-build anything?
 
 ## Notes
 
