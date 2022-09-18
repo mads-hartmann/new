@@ -7,21 +7,6 @@
 #
 with import <nixpkgs> { };
 
-let
-  nix-pre-commit-hooks = import (builtins.fetchTarball "https://github.com/cachix/pre-commit-hooks.nix/tarball/master");
-in {
-  pre-commit-check = nix-pre-commit-hooks.run {
-    src = ./.;
-    # If your hooks are intrusive, avoid running on each commit with a default_states like this:
-    # default_stages = ["manual" "push"];
-    hooks = {
-      elm-format.enable = true;
-      ormolu.enable = true;
-      shellcheck.enable = true;
-    };
-  };
-}
-
 mkShell {
 
   # Package names can be found via https://search.nixos.org/packages
@@ -41,6 +26,6 @@ mkShell {
   ];
 
   shellHook = ''
-    ${pre-commit-check.shellHook}
+    ${(import ./default.nix).pre-commit-check.shellHook}
   '';
 }
