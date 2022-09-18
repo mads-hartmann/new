@@ -14,8 +14,6 @@ let
   };
 in
 nixpkgs.mkShell {
-
-  # Package names can be found via https://search.nixos.org/packages
   nativeBuildInputs = [
     nixpkgs.man-db
     nixpkgs.less

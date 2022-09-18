@@ -16,6 +16,7 @@ Credit goes to [Geoffrey Huntley](https://ghuntley.com/) for the idea of [/new](
 
 Before switching to nix (merging this branch) I want to
 
+- Figure out how to use some of the built in pre-commit hooks like end-of-file-fixer
 - Document shell.nix better
 - Version locking (forgot the name of the tool)
 - Do I want to use cachix as a binary cache? Is it useful when I don't nix-build anything?
