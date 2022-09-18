@@ -16,16 +16,8 @@ Credit goes to [Geoffrey Huntley](https://ghuntley.com/) for the idea of [/new](
 
 Before switching to nix (merging this branch) I want to
 
-- Version locking.
-  So far I just pinned the version following https://nix.dev/tutorials/towards-reproducibility-pinning-nixpkgs)
-  But I might want ot use https://github.com/nmattia/niv
-  Is it possible to pin specific packages to specific versions? (see https://github.com/NixOS/nixpkgs/issues/93327)
-  - tailscale is currently 1.30.2
-  - pre-commit is currently 2.19.0
-  - docker is Docker version 20.10.18, build v20.10.18.
-  - treefmt is 0.4.1
-  - nixpkgs-fmt 1.3.0
-  - prettier is 2.7.1
+- Version locking<br/>
+  So far I just pinned the version following [this guide](https://nix.dev/tutorials/towards-reproducibility-pinning-nixpkgs). I might want to use [niv](https://github.com/nmattia/niv) though. I'd also like to figure out what mechanisms are in place for pinning a specific tool to a specific version. [This issue](https://github.com/NixOS/nixpkgs/issues/93327) might help me understand if that's possible and if so, how.
 - Do I want to use cachix as a binary cache? Is it useful when I don't nix-build anything?
 
 ## Decisions
