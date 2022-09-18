@@ -1,6 +1,6 @@
 # This file is being read by nix-shell. See 'man nix-shell' for more details on how this works.
 let
-  nixpkgs = import <nixpkgs> { };
+  nixpkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/f21492b413295ab60f538d5e1812ab908e3e3292.tar.gz") { };
   nix-pre-commit-hooks = import (builtins.fetchTarball "https://github.com/cachix/pre-commit-hooks.nix/tarball/master");
   pre-commit-check = nix-pre-commit-hooks.run {
     src = ./.;

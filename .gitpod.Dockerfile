@@ -68,7 +68,7 @@ RUN curl https://nixos.org/releases/nix/nix-2.11.0/install -o install-nix \
 #
 # Gitpod only rebuilds the image when the Dockerfile changes (it appears) so I'm using this
 # environment variable to manually bump the version whenever shell.nix changes.
-ENV GITPOD_NIX_SHELL_CACHE_VERSION=2
+ENV GITPOD_NIX_SHELL_CACHE_VERSION=3
 COPY ./shell.nix /workspace/nix-boot/shell.nix
 RUN . /home/gitpod/.nix-profile/etc/profile.d/nix.sh \
     && cd /workspace/nix-boot \

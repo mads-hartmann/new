@@ -16,7 +16,10 @@ Credit goes to [Geoffrey Huntley](https://ghuntley.com/) for the idea of [/new](
 
 Before switching to nix (merging this branch) I want to
 
-- Version locking (forgot the name of the tool)
+- Version locking.
+  So far I just pinned the version following https://nix.dev/tutorials/towards-reproducibility-pinning-nixpkgs)
+  But I might want ot use https://github.com/nmattia/niv
+  Is it possible to pin specific packages to specific versions? (see https://github.com/NixOS/nixpkgs/issues/93327)
   - tailscale is currently 1.30.2
   - pre-commit is currently 2.19.0
   - docker is Docker version 20.10.18, build v20.10.18.
