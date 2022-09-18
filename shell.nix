@@ -10,6 +10,18 @@ let
         name = "treefmt";
         entry = "${nixpkgs.treefmt}/bin/treefmt";
       };
+      # TODO: Fix these and maybe create issue upstead to understand if this is the
+      # way to use the "normal" hooks.
+      # trailing-whitespace = {
+      #   enable = true;
+      #   name = "trailing-whitespace";
+      #   entry = "${nixpkgs.pre-commit}";
+      # };
+      # end-of-file-fixer = {
+      #   enable = true;
+      #   name = "end-of-file-fixer";
+      #   entry = "${nixpkgs.pre-commit}";
+      # };
     };
   };
 in

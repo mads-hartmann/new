@@ -6,7 +6,7 @@ It uses [nix-shell](https://nixos.org/manual/nix/stable/command-ref/nix-shell.ht
 
 [Tailscale](https://tailscale.com/) is used to connect to my private network in case I need access to any of my internal services.
 
-Source code formatting is taken care of by [treefmt](https://github.com/numtide/treefmt) and is enforced using [pre-commit](https://pre-commit.com/) that are managed using [cachix/pre-commit-hooks.nix](https://github.com/cachix/pre-commit-hooks.nix).
+Source code formatting is taken care of by [treefmt](https://github.com/numtide/treefmt) and is enforced using [pre-commit](https://pre-commit.com/) which is configured using [cachix/pre-commit-hooks.nix](https://github.com/cachix/pre-commit-hooks.nix).
 
 But other than that there isn't much here - it's intended to be as empty as possible while still making it easy to play around with new tools or build things.
 
