@@ -1,10 +1,4 @@
-# This file is being read by nix-shell. See 'man nix-shell' for more details
-# on how this works.
-#
-# Another useful resource:
-#   https://nix.dev/tutorials/declarative-and-reproducible-developer-environments
-#   https://nixos.org/manual/nix/stable/command-ref/nix-shell.html
-#
+# This file is being read by nix-shell. See 'man nix-shell' for more details on how this works.
 let
   nixpkgs = import <nixpkgs> { };
   nix-pre-commit-hooks = import (builtins.fetchTarball "https://github.com/cachix/pre-commit-hooks.nix/tarball/master");

@@ -6,7 +6,7 @@ It uses [nix-shell](https://nixos.org/manual/nix/stable/command-ref/nix-shell.ht
 
 [Tailscale](https://tailscale.com/) is used to connect to my private network in case I need access to any of my internal services.
 
-Source code formatting is taken care of by [treefmt](https://github.com/numtide/treefmt).
+Source code formatting is taken care of by [treefmt](https://github.com/numtide/treefmt) and is enforced using [pre-commit](https://pre-commit.com/) that are managed using [cachix/pre-commit-hooks.nix](https://github.com/cachix/pre-commit-hooks.nix).
 
 But other than that there isn't much here - it's intended to be as empty as possible while still making it easy to play around with new tools or build things.
 
@@ -16,9 +16,6 @@ Credit goes to [Geoffrey Huntley](https://ghuntley.com/) for the idea of [/new](
 
 Before switching to nix (merging this branch) I want to
 
-- Git hooks
-  - See https://github.com/cachix/pre-commit-hooks.nix as a way to mange [pre-commit](https://pre-commit.com/) with nix.
-  - Run treefmt as part of the githook
 - Document shell.nix better
 - Version locking (forgot the name of the tool)
 - Do I want to use cachix as a binary cache? Is it useful when I don't nix-build anything?
@@ -34,6 +31,10 @@ Mainly for aesthetics reasons (I just need enough to run Nix, not the full kitch
 Populating the Nix store with all the packages that are required by `shell.nix` is the kind of task that fits really nicely with [Gitpod Prebuilds](https://www.gitpod.io/docs/prebuilds). However, currently prebuilds only save files in the `/workspace` directory ([see docs](https://www.gitpod.io/docs/prebuilds#workspace-directory-only)) and I couldn't get Nix to use `/workspace/nix/store` as the location of the Nix store, so for now, using an `init` task to populate the store isn't possible.
 
 Instead I populate the Nix store in the Dockerfile by `COPY`ing in shell.nix and running `nix-shell --run "exit 0"`.
+
+### Using `cachix/pre-commit-hooks.nix`
+
+I decided to use [cachix/pre-commit-hooks.nix](https://github.com/cachix/pre-commit-hooks.nix) to manage `.pre-commit-config.yaml` as I want Nix to be in full control of the environment (e.g. usually `pre-commit install` would install all executables required to run the hooks).
 
 ### Not using direnv
 
