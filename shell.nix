@@ -5,27 +5,40 @@
 #   https://nix.dev/tutorials/declarative-and-reproducible-developer-environments
 #   https://nixos.org/manual/nix/stable/command-ref/nix-shell.html
 #
-with import <nixpkgs> { };
-
-mkShell {
+let
+  nixpkgs = import <nixpkgs> { };
+  nix-pre-commit-hooks = import (builtins.fetchTarball "https://github.com/cachix/pre-commit-hooks.nix/tarball/master");
+  pre-commit-check = nix-pre-commit-hooks.run {
+    src = ./.;
+    hooks = {
+      treefmt = {
+        enable = true;
+        name = "treefmt";
+        # TODO: Find a way to refernece the absolute path to treefmt
+        entry = "treefmt";
+      };
+    };
+  };
+in
+nixpkgs.mkShell {
 
   # Package names can be found via https://search.nixos.org/packages
   nativeBuildInputs = [
-    man-db
-    less
-    tailscale
+    nixpkgs.man-db
+    nixpkgs.less
+    nixpkgs.tailscale
     # Docker
     # This is mainly to have a dev-loop for .gitpod.Dockerfile
     # slirp4netns is required by docker in rootless mode
-    slirp4netns
-    docker
+    nixpkgs.slirp4netns
+    nixpkgs.docker
     # Code formatting
-    treefmt
-    nixpkgs-fmt
-    nodePackages.prettier
+    nixpkgs.treefmt
+    nixpkgs.nixpkgs-fmt
+    nixpkgs.nodePackages.prettier
   ];
 
   shellHook = ''
-    ${(import ./default.nix).pre-commit-check.shellHook}
+    ${pre-commit-check.shellHook}
   '';
 }
