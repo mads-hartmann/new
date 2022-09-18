@@ -37,6 +37,8 @@ Instead I populate the Nix store in the Dockerfile by `COPY`ing in shell.nix and
 
 I decided to use [cachix/pre-commit-hooks.nix](https://github.com/cachix/pre-commit-hooks.nix) to manage `.pre-commit-config.yaml` as I want Nix to be in full control of the environment (e.g. usually `pre-commit install` would install all executables required to run the hooks).
 
+The downside of this is that it's a bit more complicated to use the hooks that are part of [pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks) as you can see in my shell.nix - it means you have to duplicate the hook settings. For more context [this comment](https://github.com/cachix/pre-commit-hooks.nix/issues/31#issuecomment-744657870) in [cachix/pre-commit-hooks.nix/issues/31](https://github.com/cachix/pre-commit-hooks.nix/issues/31)
+
 ### Not using direnv
 
 [direnv](https://direnv.net/) is a neat way to have folders-specific shell environments which integrates really nicely with nix-shell. I decided against including it in this repository as I want to keep things as simple as possible. However, if I wanted to add it agin here's how to do it:

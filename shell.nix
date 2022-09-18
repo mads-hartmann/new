@@ -10,18 +10,20 @@ let
         name = "treefmt";
         entry = "${nixpkgs.treefmt}/bin/treefmt";
       };
-      # TODO: Fix these and maybe create issue upstead to understand if this is the
-      # way to use the "normal" hooks.
-      # trailing-whitespace = {
-      #   enable = true;
-      #   name = "trailing-whitespace";
-      #   entry = "${nixpkgs.pre-commit}";
-      # };
-      # end-of-file-fixer = {
-      #   enable = true;
-      #   name = "end-of-file-fixer";
-      #   entry = "${nixpkgs.pre-commit}";
-      # };
+      trailing-whitespace = {
+        enable = true;
+        name = "Trim Trailing Whitespace";
+        description = "This hook trims trailing whitespace.";
+        entry = "${nixpkgs.python3Packages.pre-commit-hooks}/bin/trailing-whitespace-fixer";
+        types = [ "text" ];
+      };
+      end-of-line-fixer = {
+        enable = true;
+        name = "Fix End of Files";
+        description = "Ensures that a file is either empty, or ends with one newline.";
+        entry = "${nixpkgs.python3Packages.pre-commit-hooks}/bin/end-of-file-fixer";
+        types = [ "text" ];
+      };
     };
   };
 in
