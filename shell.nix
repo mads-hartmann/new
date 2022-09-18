@@ -8,8 +8,7 @@ let
       treefmt = {
         enable = true;
         name = "treefmt";
-        # TODO: Find a way to refernece the absolute path to treefmt
-        entry = "treefmt";
+        entry = "${nixpkgs.treefmt}/bin/treefmt";
       };
     };
   };
