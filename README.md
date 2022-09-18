@@ -16,32 +16,35 @@ Credit goes to [Geoffrey Huntley](https://ghuntley.com/) for the idea of [/new](
 
 Before switching to nix (merging this branch) I want to
 
-- Figure out how to use some of the built in pre-commit hooks like end-of-file-fixer
-- Document shell.nix better
 - Version locking (forgot the name of the tool)
+  - tailscale is currently 1.30.2
+  - pre-commit is currently 2.19.0
+  - docker is Docker version 20.10.18, build v20.10.18.
+  - treefmt is 0.4.1
+  - nixpkgs-fmt 1.3.0
+  - prettier is 2.7.1
 - Do I want to use cachix as a binary cache? Is it useful when I don't nix-build anything?
 
-## Notes
+## Decisions
 
 ### Not using `workspace-full`
 
-Mainly for aesthetics reasons (I just need enough to run Nix, not the full kitchen sink) and as a learning exercise.
+Mainly for aesthetics reasons. I want to use Nix to manage the environment and I find it tidier if the environment that isn't controlled by Nix is as minimal as possible.
+
+Additionally, I haven't used Nix before, understanding what the minimal system requirements are was a fun exercise.
 
 ### Not using a Gitpod `init` task
 
 Populating the Nix store with all the packages that are required by `shell.nix` is the kind of task that fits really nicely with [Gitpod Prebuilds](https://www.gitpod.io/docs/prebuilds). However, currently prebuilds only save files in the `/workspace` directory ([see docs](https://www.gitpod.io/docs/prebuilds#workspace-directory-only)) and I couldn't get Nix to use `/workspace/nix/store` as the location of the Nix store, so for now, using an `init` task to populate the store isn't possible.
 
-Instead I populate the Nix store in the Dockerfile by `COPY`ing in shell.nix and running `nix-shell --run "exit 0"`.
-
-### Using `cachix/pre-commit-hooks.nix`
-
-I decided to use [cachix/pre-commit-hooks.nix](https://github.com/cachix/pre-commit-hooks.nix) to manage `.pre-commit-config.yaml` as I want Nix to be in full control of the environment (e.g. usually `pre-commit install` would install all executables required to run the hooks).
-
-The downside of this is that it's a bit more complicated to use the hooks that are part of [pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks) as you can see in my shell.nix - it means you have to duplicate the hook settings. For more context [this comment](https://github.com/cachix/pre-commit-hooks.nix/issues/31#issuecomment-744657870) in [cachix/pre-commit-hooks.nix/issues/31](https://github.com/cachix/pre-commit-hooks.nix/issues/31)
+Instead I populate the Nix store in the Dockerfile by `COPY`ing in shell.nix and running `nix-shell --run "exit 0"`. This does have the downside that I have to manually bump an ENV in the Dockerfile to trigger new builds. It's not too bad - if I forget it simply means that my workspace will have to populate the Nix store with the missing packages when it starts.
 
 ### Not using direnv
 
-[direnv](https://direnv.net/) is a neat way to have folders-specific shell environments which integrates really nicely with nix-shell. I decided against including it in this repository as I want to keep things as simple as possible. However, if I wanted to add it agin here's how to do it:
+[direnv](https://direnv.net/) is a neat way to have folders-specific shell environments which integrates really nicely with nix-shell. I decided against including it in this repository as it requires a bit of additional setup and I don't have any concrete use-case for it in this tiny repository.
+
+<details>
+  <summary>However, if I wanted to add it again here's how to do it</summary>
 
 In the `.gitpod.Dockerfile` add:
 
@@ -69,3 +72,11 @@ In the `.gitpod.yml` file add:
     echo 'export DIRENV_LOG_FORMAT=""' >> /home/gitpod/.bashrc
     direnv allow
 ```
+
+</details>
+
+### Using `cachix/pre-commit-hooks.nix`
+
+I decided to use [cachix/pre-commit-hooks.nix](https://github.com/cachix/pre-commit-hooks.nix) to manage `.pre-commit-config.yaml` as I want Nix to be in full control of the environment. Normally `pre-commit install` would install all the executables required to run the hooks, which would then not be managed by Nix.
+
+The downside of this is that it's a bit more complicated to use existing hooks, e.g. the ones that are part of [pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks). As you can see in my `shell.nix` it means you have to duplicate the hook settings. For more context [this comment](https://github.com/cachix/pre-commit-hooks.nix/issues/31#issuecomment-744657870) in [cachix/pre-commit-hooks.nix/issues/31](https://github.com/cachix/pre-commit-hooks.nix/issues/31).
