@@ -18,7 +18,6 @@ Before switching to nix (merging this branch) I want to
 
 - Version locking<br/>
   So far I just pinned the version following [this guide](https://nix.dev/tutorials/towards-reproducibility-pinning-nixpkgs). I might want to use [niv](https://github.com/nmattia/niv) though. I'd also like to figure out what mechanisms are in place for pinning a specific tool to a specific version. [This issue](https://github.com/NixOS/nixpkgs/issues/93327) might help me understand if that's possible and if so, how.
-- Do I want to use cachix as a binary cache? Is it useful when I don't nix-build anything?
 
 ## Decisions
 
@@ -75,3 +74,7 @@ In the `.gitpod.yml` file add:
 I decided to use [cachix/pre-commit-hooks.nix](https://github.com/cachix/pre-commit-hooks.nix) to manage `.pre-commit-config.yaml` as I want Nix to be in full control of the environment. Normally `pre-commit install` would install all the executables required to run the hooks, which would then not be managed by Nix.
 
 The downside of this is that it's a bit more complicated to use existing hooks, e.g. the ones that are part of [pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks). As you can see in my `shell.nix` it means you have to duplicate the hook settings. For more context [this comment](https://github.com/cachix/pre-commit-hooks.nix/issues/31#issuecomment-744657870) in [cachix/pre-commit-hooks.nix/issues/31](https://github.com/cachix/pre-commit-hooks.nix/issues/31).
+
+### Not using cachix as a binary cache
+
+A lot of Nix examples out there use [Cachix](https://www.cachix.org/). My understanding so far is that it's mainly useful if you use Nix to build your applications and what to share a build cache "between CI, development and deployment environments.".
