@@ -8,25 +8,17 @@ It uses [nix-shell](https://nixos.org/manual/nix/stable/command-ref/nix-shell.ht
 
 Source code formatting is taken care of by [treefmt](https://github.com/numtide/treefmt) and is enforced using [pre-commit](https://pre-commit.com/) which is configured using [cachix/pre-commit-hooks.nix](https://github.com/cachix/pre-commit-hooks.nix).
 
+[nmattia/niv](https://github.com/nmattia/niv) is used to manage Nix dependencies and they're automatically updated every night through the use of [niv-updater-action](https://github.com/marketplace/actions/niv-updater-action) - see [.github/workflows/niv-updater.yaml](.github/workflows/niv-updater.yaml).
+
 But other than that there isn't much here - it's intended to be as empty as possible while still making it easy to play around with new tools or build things.
 
 Credit goes to [Geoffrey Huntley](https://ghuntley.com/) for the idea of [/new](https://ghuntley.com/slash-new/) and the original code in [ghuntley/new](https://github.com/ghuntley/new) which I used as a starting point.
-
-## TODOs
-
-Before switching to nix (merging this branch) I want to
-
-- Version locking<br/>
-  So far I just pinned the version following [this guide](https://nix.dev/tutorials/towards-reproducibility-pinning-nixpkgs). I might want to use [niv](https://github.com/nmattia/niv) though. I'd also like to figure out what mechanisms are in place for pinning a specific tool to a specific version. [This issue](https://github.com/NixOS/nixpkgs/issues/93327) might help me understand if that's possible and if so, how.
-  [This](https://lazamar.co.uk/nix-versions/) is also an interesting help you find specific versions of tools
 
 ## Decisions
 
 ### Using `niv` to manage dependencies
 
 I'm using [nmattia/niv](https://github.com/nmattia/niv) to manage Nix dependencies in this project. Even though I don't have a lot of dependencies to manage I still decided to use it due to the convenience it provides when it comes to updating dependencies.
-
-TODO: Write more about it once I have set up the GH action.
 
 ### Not using `workspace-full`
 
