@@ -1,13 +1,28 @@
 image:
   file: .gitpod.Dockerfile
+
 tasks:
-  - name: tailscaled
+  - name: Tailscale
     command: |
-      sudo tailscaled
-  - name: tailscale
-    command: |
-      # Connecto to the tailscale network
-      sudo tailscale up \
+      # Start tailscale daemon (tailscaled) in the background
+      nix-shell --run 'sudo $(which tailscaled)' &
+
+      # Connect to the tailscale network now that the daemon is running.
+      nix-shell --run 'sudo $(which tailscale) up \
         --authkey "${TAILSCALE_AUTH_KEY}" \
         --hostname "gitpod-${GITPOD_WORKSPACE_ID}" \
-        --ssh
+        --ssh'
+
+      # Move tailscaled to the foreground
+      fg
+
+  - name: Nix shell
+    command: |
+      clear # Remove noise from Gitpod
+      nix-shell
+
+vscode:
+  extensions:
+    - bbenoist.Nix
+    - bungcip.better-toml
+    - arrterian.nix-env-selector
