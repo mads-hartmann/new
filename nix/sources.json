@@ -1,0 +1,26 @@
+{
+    "nixpkgs": {
+        "branch": "release-21.05",
+        "description": "Nix Packages collection",
+        "homepage": "",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5f244caea76105b63d826911b2a1563d33ff1cdc",
+        "sha256": "1xlgynfw9svy7nvh9nkxsxdzncv9hg99gbvbwv3gmrhmzc3sar75",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/5f244caea76105b63d826911b2a1563d33ff1cdc.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "pre-commit-hooks.nix": {
+        "branch": "master",
+        "description": "Seamless integration of https://pre-commit.com git hooks with Nix.",
+        "homepage": "",
+        "owner": "cachix",
+        "repo": "pre-commit-hooks.nix",
+        "rev": "2e4a708918e14fdbd534cc94aaa9470cd19b2464",
+        "sha256": "1k5rlrpvvyf65vzplh4haf0gs8ykpz5bcrilcdkvwqcd858zq838",
+        "type": "tarball",
+        "url": "https://github.com/cachix/pre-commit-hooks.nix/archive/2e4a708918e14fdbd534cc94aaa9470cd19b2464.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}

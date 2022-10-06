@@ -22,6 +22,12 @@ Before switching to nix (merging this branch) I want to
 
 ## Decisions
 
+### Using `niv` to manage dependencies
+
+I'm using [nmattia/niv](https://github.com/nmattia/niv) to manage Nix dependencies in this project. Even though I don't have a lot of dependencies to manage I still decided to use it due to the convenience it provides when it comes to updating dependencies.
+
+TODO: Write more about it once I have set up the GH action.
+
 ### Not using `workspace-full`
 
 Mainly for aesthetics reasons. I want to use Nix to manage the environment and I find it tidier if the environment that isn't controlled by Nix is as minimal as possible.
