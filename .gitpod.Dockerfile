@@ -55,6 +55,9 @@ RUN curl https://nixos.org/releases/nix/nix-2.11.0/install -o install-nix \
     # that is not considered free.
     && mkdir -p /home/gitpod/.config/nixpkgs \
     && echo '{ allowUnfree = true; }' >> /home/gitpod/.config/nixpkgs/config.nix \
+    # Enable support for Flakes
+    && mkdir -p /home/gitpod/.config/nix \
+    && echo 'experimental-features = nix-command flakes' >> /home/gitpod/.config/nix/nix.conf \
     # Load nix as part for all bash sessions for the Gitpod user
     # This makes nix-shell, nix-env, etc. available
     && echo '. /home/gitpod/.nix-profile/etc/profile.d/nix.sh' >> /home/gitpod/.bashrc
